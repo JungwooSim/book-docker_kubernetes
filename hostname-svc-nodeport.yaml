@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hostname-svc-nodeport
+spec:
+  ports:
+    - name: web-port
+      port: 8080 # kube 내부에서만 사용할 수 있는 고유한 IP 를 할당 받음
+      targetPort: 80 # selector.app 에 정의한 Label 에 의해 접근 대상이 된 pod 이 내부적으로 사용하고 있는 port 입력
+  selector:
+    app: webserver # 어떤 Label 울 갖는 pod 에 접근할 수 있게 만들지 결정
+  type: NodePort # service type 명시
+  

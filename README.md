@@ -51,3 +51,33 @@ pod 는 1개 이상의 컨테이너로 구성된 컨테이너의 집합
     - 롤링, 등
 
 <img src="/img/6-10.png" width="600px;">
+
+## Service - pod 를 연결하고 외부에 노출
+
+**주요 역할**
+
+- 여러 개의 pod 를 쉽게 접근할 수 있도록 고유한 이름 부여
+- 여러 개의 pod 에 접근할 때, 요청을 분산하는 LB 기능 수행
+- LB, cluster node 의 port 등을 통해 pod 를 외부로 노출
+
+**주요 사용되고 있는 Service Type**
+
+- ClusterIP
+    - kubernetes 내부에서만 pod 에 접근할 때 사용
+    - 외부에 노출 X → cluster 내부에서만 사용되는 pod 에 적합
+- NodePort
+    - pod 에 접근할 수 있는 port 를 cluster 의 모든 node 에 동일하게 개방
+    - 외부에 노출
+    - 접근할 수 있는 port 는 랜덤으로 정해진다 (단, 특정 port 로 접근하도록 설정 가능)
+- LoadBalancer
+    - cloud platform 에서 제공되는 LB 를 동적으로 provisioning 하여 pod 에 연결
+    - 외부에 노출
+    - 일반적으로 AWS, GCP 등과 같은 cloud platform 환경에서만 사용 가능
+
+<img src="/img/6-13.png" width="600px;">
+
+<aside>
+💡 Service 의 Label “selector” 와 pod 의 Label 이 매칭돼 연결되면 kubernetes 는 자동으로 endpoint 라고 부르는 Object 를 별도로 생성한다.
+endpoint 는 Service 가 가리키고 있는 도착점(endpoint) 을 나타내는데, 이것 또한 독립적인 kubernetes 자원이므로 이론상으로 Service 와 Endpoint 를 따로 생성하는것도 가능하다.
+
+</aside>
