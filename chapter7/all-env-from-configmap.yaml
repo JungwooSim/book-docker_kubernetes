@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: container-env-example
+spec:
+  containers:
+    - name: my-container
+      image: busybox
+      args: ['tail', '-f', '/dev/null']
+      envFrom: # configmap 에 등록된 모든 변수 가져옴
+        - configMapRef:
+            name: log-level-configmap
+        - configMapRef:
+            name: start-k8s

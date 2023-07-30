@@ -61,3 +61,36 @@ kubectl get ep
 
 # delete service
 kubectl delete svc hostname-svc-clusterip
+
+# deployment,pod,rs,svc 볼수 있음
+kubectl get all
+
+# Deployment 의 pod 개수 수정
+# kubectl scale --replicas=1 deploy {deploy name}
+kubectl scale --replicas=1 deploy hostname-deployment
+
+# get namespace
+kubectl get ns
+
+# get pod where namespace
+# kubectl get po --namespace {namespace}
+kubectl get po -n kubernetes-dashboard
+
+# delete namespace 가 설정된 모두
+kubectl delete namespace production
+
+# get configmap
+kubectl get cm
+
+# pod 의 환경 변수 출력
+# kubectl exec {pod name} env
+kubectl exec container-env-example env
+
+# file 을 사용하요 configmap 생성
+kubectl create configmap from-envfile --from-env-file multiple-keyvalue.env
+
+# secret key, value 생성
+kubectl create secret generic my-password --from-literal password=123123
+
+# get secret
+kubectl get secret my-password -o yaml
